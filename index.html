@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrega DAW06</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+
+<header>
+    <h1>Kanban</h1>
+</header>
+
+<main>
+
+    <section>
+        <h2>Nueva tarea</h2>
+
+        <form id="formulario">
+            <input type="hidden" id="id">
+
+            <label>Título</label>
+            <input type="text" id="titulo">
+
+            <label>Descripción</label>
+            <textarea id="descripcion"></textarea>
+
+            <label>Prioridad</label>
+            <select id="prioridad">
+                <option value="baja">Baja</option>
+                <option value="media">Media</option>
+                <option value="alta">Alta</option>
+            </select>
+
+            <label>Fecha límite</label>
+            <input type="date" id="fecha">
+
+            <p id="error"></p>
+
+            <button type="submit">Guardar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Filtros</h2>
+
+        <label>Estado</label>
+        <select id="filtroEstado">
+            <option value="todos">Todos</option>
+            <option value="porHacer">Por hacer</option>
+            <option value="enCurso">En curso</option>
+            <option value="hecho">Hecho</option>
+        </select>
+
+        <label>Prioridad</label>
+        <select id="filtroPrioridad">
+            <option value="todas">Todas</option>
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+        </select>
+
+        <label>Buscar</label>
+        <input type="text" id="busqueda">
+    </section>
+
+    <section>
+        <h2>Estadísticas</h2>
+        <p>Total: <span id="total">0</span></p>
+        <p>Por hacer: <span id="porHacer">0</span></p>
+        <p>En curso: <span id="enCurso">0</span></p>
+        <p>Hecho: <span id="hecho">0</span></p>
+    </section>
+
+    <section class="tablero">
+
+        <div class="columna">
+            <h3>Por hacer</h3>
+            <div id="colPorHacer"></div>
+        </div>
+
+        <div class="columna">
+            <h3>En curso</h3>
+            <div id="colEnCurso"></div>
+        </div>
+
+        <div class="columna">
+            <h3>Hecho</h3>
+            <div id="colHecho"></div>
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>
