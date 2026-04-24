@@ -2,7 +2,7 @@
 
 Aplicación web de gestión de tareas tipo Kanban desarrollada con HTML, CSS y JavaScript.
 
-## 📌 
+
 Esta aplicación permite organizar tareas en tres columnas:
 
 - Por hacer
