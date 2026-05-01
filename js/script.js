@@ -12,6 +12,16 @@ const colPorHacer = document.getElementById("colPorHacer")
 const colEnCurso = document.getElementById("colEnCurso")
 const colHecho = document.getElementById("colHecho")
 
+const filtroEstado = document.getElementById("filtroEstado")
+const filtroPrioridad = document.getElementById("filtroPrioridad")
+const busqueda = document.getElementById("busqueda")
+
+const total = document.getElementById("total")
+const porHacer = document.getElementById("porHacer")
+const enCurso = document.getElementById("enCurso")
+const hecho = document.getElementById("hecho")
+const porcentaje = document.getElementById("porcentaje")
+
 let tareas = cargarTareas()
 
 if (tareas.length === 0) {
@@ -40,6 +50,7 @@ if (tareas.length === 0) {
 }
 
 pintarTareas()
+actualizarEstadisticas()
 
 formulario.addEventListener("submit", function (e) {
     e.preventDefault()
@@ -57,9 +68,23 @@ formulario.addEventListener("submit", function (e) {
 
     guardarTareas(tareas)
     pintarTareas()
+    actualizarEstadisticas()
+
     formulario.reset()
     cajaId.value = ""
     error.textContent = ""
+})
+
+filtroEstado.addEventListener("change", function () {
+    pintarTareas()
+})
+
+filtroPrioridad.addEventListener("change", function () {
+    pintarTareas()
+})
+
+busqueda.addEventListener("input", function () {
+    pintarTareas()
 })
 
 function crearTarea() {
@@ -94,7 +119,9 @@ function pintarTareas() {
     colEnCurso.innerHTML = ""
     colHecho.innerHTML = ""
 
-    for (let tarea of tareas) {
+    const tareasFiltradas = filtrarTareas()
+
+    for (let tarea of tareasFiltradas) {
         const tarjeta = document.createElement("div")
         tarjeta.className = "tarea " + tarea.prioridad
 
@@ -111,7 +138,6 @@ function pintarTareas() {
         fecha.textContent = "Fecha límite: " + tarea.fecha
 
         const selectEstado = document.createElement("select")
-        selectEstado.value = tarea.estado
 
         const opcionPorHacer = document.createElement("option")
         opcionPorHacer.value = "porHacer"
@@ -129,10 +155,13 @@ function pintarTareas() {
         selectEstado.appendChild(opcionEnCurso)
         selectEstado.appendChild(opcionHecho)
 
+        selectEstado.value = tarea.estado
+
         selectEstado.addEventListener("change", function () {
             tarea.estado = selectEstado.value
             guardarTareas(tareas)
             pintarTareas()
+            actualizarEstadisticas()
         })
 
         const botonEditar = document.createElement("button")
@@ -159,6 +188,7 @@ function pintarTareas() {
 
                 guardarTareas(tareas)
                 pintarTareas()
+                actualizarEstadisticas()
             }
         })
 
@@ -177,6 +207,56 @@ function pintarTareas() {
         } else if (tarea.estado === "hecho") {
             colHecho.appendChild(tarjeta)
         }
+    }
+}
+
+function filtrarTareas() {
+    const estadoSeleccionado = filtroEstado.value
+    const prioridadSeleccionada = filtroPrioridad.value
+    const textoBuscado = busqueda.value.toLowerCase()
+
+    let resultado = []
+
+    for (let tarea of tareas) {
+        let cumpleEstado = estadoSeleccionado === "todos" || tarea.estado === estadoSeleccionado
+        let cumplePrioridad = prioridadSeleccionada === "todas" || tarea.prioridad === prioridadSeleccionada
+
+        let textoTarea = tarea.titulo.toLowerCase() + " " + tarea.descripcion.toLowerCase()
+        let cumpleBusqueda = textoTarea.includes(textoBuscado)
+
+        if (cumpleEstado && cumplePrioridad && cumpleBusqueda) {
+            resultado.push(tarea)
+        }
+    }
+
+    return resultado
+}
+
+function actualizarEstadisticas() {
+    let totalTareas = tareas.length
+    let totalPorHacer = 0
+    let totalEnCurso = 0
+    let totalHecho = 0
+
+    for (let tarea of tareas) {
+        if (tarea.estado === "porHacer") {
+            totalPorHacer++
+        } else if (tarea.estado === "enCurso") {
+            totalEnCurso++
+        } else if (tarea.estado === "hecho") {
+            totalHecho++
+        }
+    }
+
+    total.textContent = totalTareas
+    porHacer.textContent = totalPorHacer
+    enCurso.textContent = totalEnCurso
+    hecho.textContent = totalHecho
+
+    if (totalTareas === 0) {
+        porcentaje.textContent = "0%"
+    } else {
+        porcentaje.textContent = Math.round((totalHecho / totalTareas) * 100) + "%"
     }
 }
 
