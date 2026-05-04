@@ -1,51 +1,31 @@
-# Kanban Task Manager - DAW06
+# Kanban DAW06
 
-Aplicación web de gestión de tareas tipo Kanban desarrollada con HTML, CSS y JavaScript.
+Aplicación web tipo Kanban hecha con HTML, CSS y JavaScript.
 
+Organiza las tareas en tres columnas: por hacer, en curso y hecho. La idea es poder ver de forma rápida en qué estado está cada tarea.
 
-Esta aplicación permite organizar tareas en tres columnas:
+La aplicación permite crear tareas, editarlas, eliminarlas, cambiar su estado, filtrarlas por estado o prioridad, buscarlas por texto y ver algunas estadísticas básicas. Además, las tareas se guardan en el navegador con localStorage, así que no se pierden al recargar la página.
 
-- Por hacer
-- En curso
-- Hecho
+## Uso
 
-El objetivo es facilitar la gestión visual de tareas, permitiendo moverlas entre estados y hacer un seguimiento del progreso.
+Para usar la aplicación  escribimos una tarea en el formulario y la guardamos. La tarea aparecerá en la columna “Por hacer”. Luego podemos cambiarla de columna , editarla con el botón de editar o eliminarla. También se pueden usar los filtros y el buscador para encontrar tareas más fácilmente.
 
-Funcionalidades (en desarrollo)
+## Estructura
 
-- Crear tareas con título, descripción, prioridad y fecha límite
-- Editar tareas existentes
-- Eliminar tareas
-- Cambiar el estado de las tareas (Kanban)
-- Filtros por estado y prioridad
-- Búsqueda de tareas
-- Estadísticas básicas
-- Persistencia de datos con localStorage
+El proyecto tiene un archivo principal index.html, una carpeta css con los estilos y una carpeta js con el script.
 
-Estructura del proyecto
-/
-├── index.html
-├── css/
-│ └── estils.css
-├── js/
-│ └── script.js
-├── img/
-└── README.md
+## Tecnologías
 
-Uso
+HTML, CSS y JavaScript.
 
-1. Abrir el archivo `index.html` en el navegador
-2. Crear una nueva tarea desde el formulario
-3. Gestionar las tareas desde el tablero Kanban
+## Enlaces
 
-Tecnologías utilizadas
+Repositorio:
+https://github.com/PauR07/Entrega06-DAW
 
-- HTML5
-- CSS3
-- JavaScript (Vanilla JS)
-- localStorage
-- Git y GitHub
+GitHub Pages:
+https://paur07.github.io/Entrega06-DAW/
 
-Estado del proyecto
+## Estado
 
-Proyecto en desarrollo como parte de la práctica DAW06.
+Proyecto hecho para la práctica DAW06.
