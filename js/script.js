@@ -51,6 +51,7 @@ if (tareas.length === 0) {
 
 pintarTareas()
 actualizarEstadisticas()
+
 prepararDragAndDrop()
 
 formulario.addEventListener("submit", function (e) {
