@@ -51,6 +51,7 @@ if (tareas.length === 0) {
 
 pintarTareas()
 actualizarEstadisticas()
+prepararDragAndDrop()
 
 formulario.addEventListener("submit", function (e) {
     e.preventDefault()
@@ -124,6 +125,11 @@ function pintarTareas() {
     for (let tarea of tareasFiltradas) {
         const tarjeta = document.createElement("div")
         tarjeta.className = "tarea " + tarea.prioridad
+        tarjeta.draggable = true
+
+        tarjeta.addEventListener("dragstart", function (e) {
+            e.dataTransfer.setData("id", tarea.id)
+        })
 
         const titulo = document.createElement("h4")
         titulo.textContent = tarea.titulo
@@ -207,6 +213,32 @@ function pintarTareas() {
         } else if (tarea.estado === "hecho") {
             colHecho.appendChild(tarjeta)
         }
+    }
+}
+function prepararDragAndDrop() {
+    const columnas = document.querySelectorAll(".columna")
+
+    for (let columna of columnas) {
+        columna.addEventListener("dragover", function (e) {
+            e.preventDefault()
+        })
+
+        columna.addEventListener("drop", function (e) {
+            e.preventDefault()
+
+            const id = Number(e.dataTransfer.getData("id"))
+            const nuevoEstado = columna.dataset.estado
+
+            for (let tarea of tareas) {
+                if (tarea.id === id) {
+                    tarea.estado = nuevoEstado
+                }
+            }
+
+            guardarTareas(tareas)
+            pintarTareas()
+            actualizarEstadisticas()
+        })
     }
 }
 
